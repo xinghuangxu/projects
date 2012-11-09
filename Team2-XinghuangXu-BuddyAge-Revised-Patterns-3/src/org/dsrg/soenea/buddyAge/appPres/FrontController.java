@@ -12,7 +12,6 @@ import org.dsrg.soenea.application.servlet.dispatcher.Dispatcher;
 import org.dsrg.soenea.application.servlet.service.DispatcherFactory;
 import org.dsrg.soenea.buddyAge.domLogic.Person;
 import org.dsrg.soenea.buddyAge.domLogic.PersonOutputMapper;
-import org.dsrg.soenea.buddyAge.domLogic.command.FrontCommand;
 import org.dsrg.soenea.domain.MapperException;
 import org.dsrg.soenea.domain.command.CommandException;
 import org.dsrg.soenea.service.MySQLConnectionFactory;
