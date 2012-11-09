@@ -58,4 +58,9 @@ public abstract class PersonTDG {
 		ps.close();
 		return count;
 	}
+
+//	public static long maxId() {
+//		// TODO Auto-generated method stub
+//		return 0;
+//	}
 }

@@ -77,7 +77,6 @@ public class PersonInputMapper {
 			 {
 		Long id = rs.getLong("p.id");
 		try {
-
 			return IdentityMap.get(id, Person.class);
 		} catch (DomainObjectNotFoundException ex) {
 			long buddyId = rs.getLong("buddy");

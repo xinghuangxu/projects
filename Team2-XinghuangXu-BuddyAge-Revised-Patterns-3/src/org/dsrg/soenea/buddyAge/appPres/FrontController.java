@@ -8,9 +8,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.dsrg.soenea.buddyAge.appPres.command.FrontCommand;
+import org.dsrg.soenea.application.servlet.dispatcher.Dispatcher;
+import org.dsrg.soenea.application.servlet.service.DispatcherFactory;
 import org.dsrg.soenea.buddyAge.domLogic.Person;
 import org.dsrg.soenea.buddyAge.domLogic.PersonOutputMapper;
+import org.dsrg.soenea.buddyAge.domLogic.command.FrontCommand;
 import org.dsrg.soenea.domain.MapperException;
 import org.dsrg.soenea.domain.command.CommandException;
 import org.dsrg.soenea.service.MySQLConnectionFactory;
@@ -57,34 +59,33 @@ public class FrontController extends HttpServlet {
 	public void setUpUow(){
 		MapperFactory mapperFactory=new MapperFactory();
 		mapperFactory.addMapping(Person.class, PersonOutputMapper.class);
-		UoW.newCurrent();
 		UoW.initMapperFactory(mapperFactory);
 	}
 
 	protected void processRequest(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		FrontCommand fc = null;
+
+		Dispatcher dispatcher=null;
 		try {
-			fc = getFrontCommand(request);
+			dispatcher=getDispatcher(request);
 		} catch (Exception e) {
 			throw new ServletException(e);
 		}
-		if (fc != null) {
-			String dispatchTarget;
+		if (dispatcher != null) {
+			//String dispatchTarget;
 			try {
 				UoW.newCurrent();
-				dispatchTarget = fc.execute(request);
+				dispatcher.init(request, response);
+				dispatcher.execute();
 				UoW.getCurrent().commit();
-			} catch (CommandException e) {
-				throw new ServletException(e);
-			}catch(Exception e){
+			} catch(Exception e){
 				throw new ServletException(e);
 			}
 			
-			if (dispatchTarget != null) {
-				request.getRequestDispatcher(dispatchTarget).forward(request,
-						response);
-			}
+//			if (dispatchTarget != null) {
+//				request.getRequestDispatcher(dispatchTarget).forward(request,
+//						response);
+//			}
 //			try{
 //				UoW.getCurrent().commit();
 //			}
@@ -94,15 +95,14 @@ public class FrontController extends HttpServlet {
 		}
 	}
 
-	private FrontCommand getFrontCommand(HttpServletRequest request)
-			throws InstantiationException, IllegalAccessException,
-			ClassNotFoundException //
+	private Dispatcher getDispatcher(HttpServletRequest request)
+			throws Exception
 	{
-		String command = request.getParameter("command");
-		if (command == null || command.isEmpty())
-			command = "ViewPerson";
-		String fullyQualifiedCommand = "org.dsrg.soenea.buddyAge.appPres.command." + command;
-		return (FrontCommand) Class.forName(fullyQualifiedCommand).newInstance();
+		String dispatcher = request.getParameter("dispatcher");
+		if (dispatcher == null || dispatcher.isEmpty())
+			dispatcher = "ViewPersonDispatcher";
+		String fullyQualifiedDispatcher = "org.dsrg.soenea.buddyAge.appPres.dispatcher." + dispatcher+"Dispatcher";
+		return DispatcherFactory.getInstance(fullyQualifiedDispatcher);
 	}
 
 	@Override
