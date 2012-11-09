@@ -1,0 +1,16 @@
+package org.dsrg.soenea.buddyAge.domLogic.command;
+
+
+import org.dsrg.soenea.domain.command.DomainCommand;
+
+public class DomainCommandFactory {
+	
+	public static DomainCommand getInstance(String key) throws Exception {
+		try {
+			return (DomainCommand)Class.forName(key.toString()).newInstance();
+		} catch (Exception e) {
+			throw new Exception("There was a problem getting a DomainCommand for key '" + key + "'. " + e.getMessage(), e);
+		}
+	}
+
+}
