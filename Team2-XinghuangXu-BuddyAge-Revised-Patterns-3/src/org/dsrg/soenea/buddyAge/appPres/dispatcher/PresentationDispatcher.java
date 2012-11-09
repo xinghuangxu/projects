@@ -17,7 +17,7 @@ public abstract class PresentationDispatcher extends Dispatcher {
 		String command = myHelper.getString("command");
 		if (command == null || command.isEmpty())
 			command = "ViewPerson";
-		String fullyQualifiedCommand = "org.dsrg.soenea.buddyAge.appPres.command." + command+"Command";
+		String fullyQualifiedCommand = "org.dsrg.soenea.buddyAge.appPres.command." + command+"Cmd";
 		return (DomainCommand) Class.forName(fullyQualifiedCommand).newInstance();
 	}
 	

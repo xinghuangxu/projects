@@ -1,6 +1,5 @@
 package org.dsrg.soenea.buddyAge.domLogic;
 
-import org.dsrg.soenea.buddyAge.techSvc.PersonTDG;
 import org.dsrg.soenea.domain.MapperException;
 import org.dsrg.soenea.uow.MissingMappingException;
 import org.dsrg.soenea.uow.UoW;

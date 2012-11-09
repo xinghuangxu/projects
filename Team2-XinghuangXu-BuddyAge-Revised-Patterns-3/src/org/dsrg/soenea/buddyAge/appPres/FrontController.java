@@ -81,25 +81,15 @@ public class FrontController extends HttpServlet {
 				throw new ServletException(e);
 			}
 			
-//			if (dispatchTarget != null) {
-//				request.getRequestDispatcher(dispatchTarget).forward(request,
-//						response);
-//			}
-//			try{
-//				UoW.getCurrent().commit();
-//			}
-//			catch(Exception e){
-//				throw new ServletException(e);
-//			}
 		}
 	}
 
 	private Dispatcher getDispatcher(HttpServletRequest request)
 			throws Exception
 	{
-		String dispatcher = request.getParameter("dispatcher");
+		String dispatcher = request.getParameter("command");
 		if (dispatcher == null || dispatcher.isEmpty())
-			dispatcher = "ViewPersonDispatcher";
+			dispatcher = "ViewPerson";
 		String fullyQualifiedDispatcher = "org.dsrg.soenea.buddyAge.appPres.dispatcher." + dispatcher+"Dispatcher";
 		return DispatcherFactory.getInstance(fullyQualifiedDispatcher);
 	}
