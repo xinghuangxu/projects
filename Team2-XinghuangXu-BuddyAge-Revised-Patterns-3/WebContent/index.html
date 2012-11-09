@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>BuddyAge WEA</title>
+</head>
+<body>
+	<h2>Welcome to the BuddyAge WEA</h2>
+	<ul>
+		<li><a href="BuddyAge?command=BrowsePeople">Browse people</a> in the buddy list.</li>
+		<li>
+			<form id="AddPersonForm" method="get" action="BuddyAge?command=AddPerson">
+				<p>
+					Add a new person to the buddy list:<br /> 
+					<label>Name <input type="text" name="name" id="name" /> </label> 
+					<label>Age <input name="age" type="text" id="age" size="4" /> </label> 
+					<label>Buddy <input type="text" name="buddy" id="buddy" /> </label> 
+					<input type="submit" id="add" value="Add" />
+				</p>
+			</form>
+		</li>
+	</ul>
+</body>
+</html>

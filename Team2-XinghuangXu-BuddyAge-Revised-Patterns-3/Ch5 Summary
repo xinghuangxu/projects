@@ -1,0 +1,35 @@
+Ch 5 - SoenEA Framework and its Use
+
+SoenEA - EA framework that includes many patterns from thesis, makes it easier to implement patterns correctly and easily
+
+5.1 - SoenEA, our WEA Framework
+	Patterns - corresponds directly to the patterns discussed in this thesis
+Utility components - smooth out working in the web development environment
+Default Implementations of Typical Components (DITCs) - consist of those classes that make use of the patterns and utilities to demonstrate how a developer might
+make use of SoenEA
+Test components - ensure that SoenEA is working properly after updates
+
+5.2 - SoenEA Patterns
+	Domain Objects -
+		* DomainObject - the actual object, use to make Person	
+		* DomainObjectProxy - use to make PersonProxy
+	* Both implement IDomainObject<IDField>
+	* If you don’t associate DomainObjects with UoW then it is caller registration
+	* If you use UoWDomainObject  then it is object registration 
+	* UowDomainObjects manage their own UoW state
+	* A factory should be created for each DomainObject
+GenericOutputMapper - 
+	* Use to make Output Mapper for an Domain Object, Person
+* OutputMapper should limit the data it persists only to the DomainObject for 
+which it is responsible
+UoW and IdentityMap -
+	* UoW is TheadLocal Singleton - one Uow instance will exist for each request 
+	* UoW has sets for all DomainObjects depending on their state (clean, dirty, 
+deleted or new)
+* use the UoW as the back-end for an IdentityMap
+* DomainObjects must be mapped to their corresponding GenericOutputMappers using a MapperFactory
+* Set up mappings between DOs and GenericObjectMappers in the init() method by use of a service method
+
+
+
+
