@@ -8,7 +8,6 @@ public class DeletePersonDispatcher extends PresentationDispatcher {
 
 	@Override
 	public void execute() throws ServletException, IOException {
-		super.execute();
 		redirectToDispatcher(new BrowsePeopleDispatcher());
 
 	}

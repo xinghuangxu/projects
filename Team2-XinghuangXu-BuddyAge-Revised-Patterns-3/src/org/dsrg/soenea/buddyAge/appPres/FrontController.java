@@ -12,8 +12,6 @@ import org.dsrg.soenea.application.servlet.dispatcher.Dispatcher;
 import org.dsrg.soenea.application.servlet.service.DispatcherFactory;
 import org.dsrg.soenea.buddyAge.domLogic.Person;
 import org.dsrg.soenea.buddyAge.domLogic.PersonOutputMapper;
-import org.dsrg.soenea.domain.MapperException;
-import org.dsrg.soenea.domain.command.CommandException;
 import org.dsrg.soenea.service.MySQLConnectionFactory;
 import org.dsrg.soenea.service.registry.Registry;
 import org.dsrg.soenea.service.threadLocal.DbRegistry;
@@ -26,7 +24,8 @@ public class FrontController extends HttpServlet {
 	private static final long serialVersionUID = -416954672175724024L;
 
 	public static void prepareDbRegistry(String db_id) {
-		MySQLConnectionFactory f = new MySQLConnectionFactory(null, null, null, null);
+		MySQLConnectionFactory f = new MySQLConnectionFactory(null, null, null,
+				null);
 		try {
 			f.defaultInitialization(db_id);
 		} catch (SQLException e2) {
@@ -50,13 +49,13 @@ public class FrontController extends HttpServlet {
 	public void init() throws ServletException {
 		super.init();
 		prepareDbRegistry("");
-		//Call Initialize
+		// Call Initialize
 		setUpUow();
 	}
-	
-	//Initialize the Unit of work
-	public void setUpUow(){
-		MapperFactory mapperFactory=new MapperFactory();
+
+	// Initialize the Unit of work
+	public void setUpUow() {
+		MapperFactory mapperFactory = new MapperFactory();
 		mapperFactory.addMapping(Person.class, PersonOutputMapper.class);
 		UoW.initMapperFactory(mapperFactory);
 	}
@@ -64,34 +63,33 @@ public class FrontController extends HttpServlet {
 	protected void processRequest(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		Dispatcher dispatcher=null;
+		Dispatcher dispatcher = null;
 		try {
-			dispatcher=getDispatcher(request);
+			dispatcher = getDispatcher(request);
 		} catch (Exception e) {
 			throw new ServletException(e);
 		}
 		if (dispatcher != null) {
-			//String dispatchTarget;
+			// String dispatchTarget;
 			try {
 				UoW.newCurrent();
 				dispatcher.init(request, response);
 				dispatcher.execute();
-				UoW.getCurrent().commit();
-			} catch(Exception e){
+				
+			} catch (Exception e) {
 				throw new ServletException(e);
 			}
-			
 
 		}
 	}
 
 	private Dispatcher getDispatcher(HttpServletRequest request)
-			throws Exception
-	{
+			throws Exception {
 		String dispatcher = request.getParameter("command");
 		if (dispatcher == null || dispatcher.isEmpty())
 			dispatcher = "ViewPerson";
-		String fullyQualifiedDispatcher = "org.dsrg.soenea.buddyAge.appPres.dispatcher." + dispatcher+"Dispatcher";
+		String fullyQualifiedDispatcher = "org.dsrg.soenea.buddyAge.appPres.dispatcher."
+				+ dispatcher + "Dispatcher";
 		return DispatcherFactory.getInstance(fullyQualifiedDispatcher);
 	}
 

@@ -6,27 +6,17 @@ import org.dsrg.soenea.buddyAge.domLogic.PersonInputMapper;
 import org.dsrg.soenea.domain.MapperException;
 import org.dsrg.soenea.domain.command.CommandError;
 import org.dsrg.soenea.domain.command.CommandException;
-import org.dsrg.soenea.domain.command.DomainCommand;
 import org.dsrg.soenea.domain.helper.Helper;
 import org.dsrg.soenea.domain.mapper.LostUpdateException;
 import org.dsrg.soenea.uow.UoW;
 
 public class IncreaseAgeCmd extends DomainCommand {
 
-	public IncreaseAgeCmd(Helper helper) {
-		super(helper);
-		// TODO Auto-generated constructor stub
-	}
+
 
 
 	@Override
-	public void setUp() throws CommandException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void process() throws CommandException{
+	public void execute() throws CommandException {
 		long id = 0;
 		Person person = null;
 		try {
@@ -48,13 +38,6 @@ public class IncreaseAgeCmd extends DomainCommand {
 		} catch (MapperException e) {
 			throw new CommandException(e);
 		}
-	}
-		
-	
-
-	@Override
-	public void tearDown() throws CommandError {
-		// TODO Auto-generated method stub
 		
 	}
 }

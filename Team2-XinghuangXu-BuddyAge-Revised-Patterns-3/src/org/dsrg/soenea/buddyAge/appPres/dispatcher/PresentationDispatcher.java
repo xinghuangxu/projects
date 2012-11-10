@@ -5,9 +5,10 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 
 import org.dsrg.soenea.application.servlet.dispatcher.Dispatcher;
+import org.dsrg.soenea.buddyAge.domLogic.command.DomainCommand;
 import org.dsrg.soenea.buddyAge.domLogic.command.DomainCommandFactory;
 import org.dsrg.soenea.domain.command.CommandException;
-import org.dsrg.soenea.domain.command.DomainCommand;
+import org.dsrg.soenea.uow.UoW;
 
 public abstract class PresentationDispatcher extends Dispatcher {
 	
@@ -25,7 +26,9 @@ public abstract class PresentationDispatcher extends Dispatcher {
 	public void execute() throws ServletException, IOException {
 		try {
 			DomainCommand domainCommand=getDomainCommand();
+			domainCommand.init(myHelper);
 			domainCommand.execute();
+			UoW.getCurrent().commit();
 		} catch (CommandException e) {
 			throw new ServletException(e);
 		}  catch (Exception e) {
