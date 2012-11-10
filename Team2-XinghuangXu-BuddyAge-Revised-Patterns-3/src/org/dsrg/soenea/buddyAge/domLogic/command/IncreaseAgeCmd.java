@@ -4,9 +4,7 @@ package org.dsrg.soenea.buddyAge.domLogic.command;
 import org.dsrg.soenea.buddyAge.domLogic.Person;
 import org.dsrg.soenea.buddyAge.domLogic.PersonInputMapper;
 import org.dsrg.soenea.domain.MapperException;
-import org.dsrg.soenea.domain.command.CommandError;
 import org.dsrg.soenea.domain.command.CommandException;
-import org.dsrg.soenea.domain.helper.Helper;
 import org.dsrg.soenea.domain.mapper.LostUpdateException;
 import org.dsrg.soenea.uow.UoW;
 

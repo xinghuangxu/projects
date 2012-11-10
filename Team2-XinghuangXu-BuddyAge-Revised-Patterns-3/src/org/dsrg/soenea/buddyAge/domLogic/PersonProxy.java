@@ -42,7 +42,7 @@ public class PersonProxy extends DomainObjectProxy<Long, Person>
 
 	
 	protected Person getFromMapper(Long id) throws MapperException {
-		return PersonMapper.find(id);
+		return PersonInputMapper.find(id);
 	}
 
 }

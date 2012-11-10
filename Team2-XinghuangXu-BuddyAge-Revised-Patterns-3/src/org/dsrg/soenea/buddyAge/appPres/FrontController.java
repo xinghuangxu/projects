@@ -75,7 +75,6 @@ public class FrontController extends HttpServlet {
 				UoW.newCurrent();
 				dispatcher.init(request, response);
 				dispatcher.execute();
-				
 			} catch (Exception e) {
 				throw new ServletException(e);
 			}
